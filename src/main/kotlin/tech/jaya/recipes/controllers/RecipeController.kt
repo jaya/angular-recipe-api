@@ -3,6 +3,7 @@ package tech.jaya.recipes.controllers
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.HttpStatus.NO_CONTENT
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,6 +19,7 @@ import tech.jaya.recipes.services.RecipeService
 
 @RestController
 @RequestMapping("/recipes")
+@CrossOrigin(origins = ["http://localhost:4200"])
 class RecipeController(@Autowired private val recipeService: RecipeService) {
 
     @GetMapping(value = ["", "/"])

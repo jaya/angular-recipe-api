@@ -16,14 +16,16 @@ import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import tech.jaya.recipes.controllers.request.RecipeRequest
 import tech.jaya.recipes.services.RecipeService
+import java.time.Duration
 
 @RestController
 @RequestMapping("/recipes")
 @CrossOrigin(origins = ["http://localhost:4200"])
 class RecipeController(@Autowired private val recipeService: RecipeService) {
 
+
     @GetMapping(value = ["", "/"])
-    fun getRecipes() = recipeService.findAllRecipes()
+    fun getRecipes() = recipeService.findAllRecipes().delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS))
 
     @ResponseStatus(CREATED)
     @PostMapping(value = ["", "/"])
@@ -39,4 +41,8 @@ class RecipeController(@Autowired private val recipeService: RecipeService) {
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping(value = "/{id}")
     fun removeByID(@PathVariable id: String) = recipeService.deleteRecipeById(id)
+
+    companion object {
+        const val DELAY_PER_ITEM_MS = 100L
+    }
 }

@@ -43,6 +43,6 @@ class RecipeController(@Autowired private val recipeService: RecipeService) {
     fun removeByID(@PathVariable id: String) = recipeService.deleteRecipeById(id)
 
     companion object {
-        const val DELAY_PER_ITEM_MS = 100L
+        const val DELAY_PER_ITEM_MS = 10000L
     }
 }

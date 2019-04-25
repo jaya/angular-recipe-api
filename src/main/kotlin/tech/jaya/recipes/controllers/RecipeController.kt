@@ -25,7 +25,7 @@ class RecipeController(@Autowired private val recipeService: RecipeService) {
 
 
     @GetMapping(value = ["", "/"])
-    fun getRecipes() = recipeService.findAllRecipes()
+    fun getRecipes() = recipeService.findAllRecipes().delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS))
 
     @ResponseStatus(CREATED)
     @PostMapping(value = ["", "/"])
@@ -42,4 +42,7 @@ class RecipeController(@Autowired private val recipeService: RecipeService) {
     @DeleteMapping(value = "/{id}")
     fun removeByID(@PathVariable id: String) = recipeService.deleteRecipeById(id)
 
+    companion object {
+        const val DELAY_PER_ITEM_MS = 100L
+    }
 }
